@@ -49,10 +49,10 @@ Esta é uma API desenvolvida em Laravel para gerenciar feriados. A API permite o
    ```bash
    php artisan test
    ```
-```
+
 
 ### 3. **Autenticação**
-```markdown
+
 ## Autenticação
 
 A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inclui o registro de usuários, login, e logout.
@@ -107,11 +107,11 @@ A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inc
 
 **Resposta de Sucesso:**
 
-- **Status:** 204 No Content
+- **Status:** 200 Ok
 - **Corpo:**
   ```json
   {
-      "message": "Logged out successfully."
+      "message": "Unautorized"
   }
   ```
 
@@ -135,10 +135,9 @@ A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inc
       ...
   }
   ```
-```
 
 ### 4. **Gerenciamento de Feriados**
-```markdown
+
 ## Gerenciamento de Feriados
 
 ### Listar Feriados
@@ -282,10 +281,9 @@ A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inc
 
 - **Status:** 200 OK
 - **Corpo:** O arquivo PDF será baixado.
-```
 
 ### 5. **Considerações Finais**
-```markdown
+
 ## Considerações Finais
 
 Esta API foi construída utilizando Laravel e segue as melhores práticas de desenvolvimento, incluindo autenticação segura com Laravel Sanctum e tratamento de erros adequado.

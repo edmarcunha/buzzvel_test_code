@@ -15,8 +15,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 // LOGIN ROUTES
 Route::post('/register', [RegisteredUserController::class, 'store']);
-Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']); 
 
 // HOLIDAY ROUTES
 Route::middleware('auth:sanctum')->group(function () {
@@ -27,4 +26,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/holidays/{holiday}', [HolidayController::class, 'destroy']);
     
     Route::get('/holidays/{id}/pdf', [PdfController::class, 'generate']);
+
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });

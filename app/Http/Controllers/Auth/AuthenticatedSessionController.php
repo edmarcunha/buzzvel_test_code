@@ -19,7 +19,6 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $user = $request->user();
-        // Criar um token de API
         $token = $user->createToken('API Token')->plainTextToken;
 
         return response()->json(['token' => $token]);
@@ -33,15 +32,14 @@ class AuthenticatedSessionController extends Controller
         $user = $request->user();
 
         if ($user) {
-            // Revogar todos os tokens de API do usuário
             $user->tokens()->delete();
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return response()->json(['message' => 'Logged out successfully.']);
         }
-
-        Auth::guard('web')->logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return response()->json(['message' => 'Logged out successfully.']);
+        
     }
 }

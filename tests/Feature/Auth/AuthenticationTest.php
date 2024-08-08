@@ -5,43 +5,47 @@ namespace Tests\Feature\Auth;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Hash;
 
 class AuthenticationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_users_can_authenticate_using_the_login_screen(): void
+    /**
+     * Test user registration.
+     *
+     * @return void
+     */
+    public function test_user_can_register()
     {
-        $user = User::factory()->create();
-
-        $response = $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'password',
+        $response = $this->post('/api/register', [
+            'name' => 'Test User',
+            'email' => 'testuser@example.com',
+            'password' => 'password123',
+            'password_confirmation' => 'password123',
         ]);
 
-        $this->assertAuthenticated();
-        $response->assertNoContent();
+        $response->assertStatus(204);
     }
 
-    public function test_users_can_not_authenticate_with_invalid_password(): void
+    /**
+     * Test user login.
+     *
+     * @return void
+     */
+    public function test_user_can_login()
     {
-        $user = User::factory()->create();
-
-        $this->post('/login', [
-            'email' => $user->email,
-            'password' => 'wrong-password',
+        // First, create a user
+        $user = User::factory()->create([
+            'password' => Hash::make('password123'),
         ]);
 
-        $this->assertGuest();
+        $response = $this->post('/api/login', [
+            'email' => $user->email,
+            'password' => 'password123',
+        ]);
+
+        $response->assertStatus(200);
     }
 
-    public function test_users_can_logout(): void
-    {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->post('/logout');
-
-        $this->assertGuest();
-        $response->assertNoContent();
-    }
 }

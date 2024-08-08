@@ -18,8 +18,8 @@ class Holiday extends Model
     ];
 
     protected $casts = [
-        'participants' => 'array',
-        'date' => 'date',
+        'participants'  => 'array',
+        'date'          => 'date',
     ];
     
 }

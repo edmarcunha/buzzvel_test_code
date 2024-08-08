@@ -18,14 +18,6 @@ class HolidayController extends Controller
         return response()->json($holidays);
     }
 
-    // /**
-    //  * Show the form for creating a new resource.
-    //  */
-    // public function create()
-    // {
-    //     //
-    // }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -50,14 +42,6 @@ class HolidayController extends Controller
 
         return response()->json($holiday);
     }
-
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  */
-    // public function edit(string $id)
-    // {
-    //     //
-    // }
 
     /**
      * Update the specified resource in storage.

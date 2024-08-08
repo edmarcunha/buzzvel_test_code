@@ -28,4 +28,3 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/holidays/{id}/pdf', [PdfController::class, 'generate']);
 });
-//teste

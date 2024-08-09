@@ -19,7 +19,7 @@ This is an API developed in Laravel for managing holidays. The API allows for us
 2. Install project dependencies:
 
    ```bash
-   cd buzzvel
+   cd buzzvel_test_code
    composer install
    ```
 

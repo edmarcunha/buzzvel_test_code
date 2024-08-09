@@ -1,93 +1,85 @@
 # Holiday Management API
 
-Esta é uma API desenvolvida em Laravel para gerenciar feriados. A API permite o registro, autenticação de usuários e a gestão de feriados, incluindo criação, leitura, atualização e exclusão de feriados. A autenticação é baseada em tokens utilizando Laravel Sanctum.
+This is an API developed in Laravel for managing holidays. The API allows for user registration, authentication, and holiday management, including creating, reading, updating, and deleting holidays. Authentication is token-based, using Laravel Sanctum.
 
-## Funcionalidades
-- Registro de usuários
-- Autenticação de usuários
-- Gerenciamento de feriados (CRUD)
-- Geração de documentos PDF com os detalhes dos feriados
+## Features
+- User registration
+- User authentication
+- Holiday management (CRUD)
+- PDF document generation with holiday details
 
-### 2. **Instalação**
+## Installation
 
-## Instalação
-
-1. Clone o repositório:
+1. Clone the repository:
 
    ```
-   git clone https://github.com/seu-usuario/buzzvel.git
+   git clone https://github.com/edmarcunha/buzzvel_test_code.git
    ```
 
-2. Instale as dependências do projeto:
+2. Install project dependencies:
 
    ```bash
    cd buzzvel
    composer install
    ```
 
-3. Configure o arquivo `.env`:
+3. Configure the .env file:
+
+- Set up your database configurations in the .env file.
 
    ```bash
    cp .env.example .env
    php artisan key:generate
    ```
 
-4. Execute as migrações do banco de dados:
+4. Run database migrations:
 
    ```bash
    php artisan migrate
    ```
 
-5. Inicie o servidor de desenvolvimento:
+5. Start the development server:
 
    ```bash
    php artisan serve
    ```
 
-6. (Opcional) Rode os testes:
+6. (Optional) Run the tests:
 
    ```bash
    php artisan test
    ```
 
 
-### 3. **Autenticação**
+## Authentication
 
-## Autenticação
+The API uses Laravel Sanctum for token-based authentication. The basic flow includes user registration, login, and logout.
 
-A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inclui o registro de usuários, login, e logout.
-
-### Registro de Usuário
+### User Registration
 
 **Endpoint:** `POST /api/register`
 
-**Parâmetros:**
+**Parameters:**
 
-- `name` (string, obrigatório)
-- `email` (string, obrigatório)
-- `password` (string, obrigatório)
-- `password_confirmation` (string, obrigatório)
+- `name` (string, required)
+- `email` (string, required)
+- `password` (string, required)
+- `password_confirmation` (string, required)
 
-**Resposta de Sucesso:**
+**Success Response:**
 
-- **Status:** 201 Created
-- **Corpo:**
-  ```json
-  {
-      "token": "API_TOKEN"
-  }
-  ```
+- **Status:** 200 OK
 
 ### Login
 
 **Endpoint:** `POST /api/login`
 
-**Parâmetros:**
+**Parameters:**
 
 - `email` (string, obrigatório)
 - `password` (string, obrigatório)
 
-**Resposta de Sucesso:**
+**Success Response:**
 
 - **Status:** 200 OK
 - **Corpo:**
@@ -101,14 +93,14 @@ A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inc
 
 **Endpoint:** `POST /api/logout`
 
-**Cabeçalhos:**
+**Headers:**
 
 - `Authorization: Bearer API_TOKEN`
 
-**Resposta de Sucesso:**
+**Success Response:**
 
 - **Status:** 200 Ok
-- **Corpo:**
+- **Body:**
   ```json
   {
       "message": "Unautorized"
@@ -119,14 +111,14 @@ A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inc
 
 **Endpoint:** `GET /api/user`
 
-**Cabeçalhos:**
+**Headers:**
 
 - `Authorization: Bearer API_TOKEN`
 
-**Resposta de Sucesso:**
+**Success Response:**
 
 - **Status:** 200 OK
-- **Corpo:**
+- **Body:**
   ```json
   {
       "id": 1,
@@ -136,22 +128,20 @@ A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inc
   }
   ```
 
-### 4. **Gerenciamento de Feriados**
+## Holiday Management
 
-## Gerenciamento de Feriados
-
-### Listar Feriados
+### List Holidays
 
 **Endpoint:** `GET /api/holidays`
 
-**Cabeçalhos:**
+**Headers:**
 
 - `Authorization: Bearer API_TOKEN`
 
-**Resposta de Sucesso:**
+**Success Response:**
 
 - **Status:** 200 OK
-- **Corpo:**
+- **Body:**
   ```json
   [
       {
@@ -166,26 +156,26 @@ A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inc
   ]
   ```
 
-### Criar Feriado
+### Create Holiday
 
 **Endpoint:** `POST /api/holidays`
 
-**Cabeçalhos:**
+**Headers:**
 
 - `Authorization: Bearer API_TOKEN`
 
-**Parâmetros:**
+**Parameters:**
 
-- `title` (string, obrigatório)
-- `description` (string, opcional)
-- `date` (string, obrigatório, formato `YYYY-MM-DD`)
-- `location` (string, opcional)
-- `participants` (array, opcional)
+- `title` (string, required)
+- `description` (string, required)
+- `date` (string, required, format `YYYY-MM-DD`)
+- `location` (string, required)
+- `participants` (array, optional)
 
-**Resposta de Sucesso:**
+**Success Response:**
 
-- **Status:** 201 Created
-- **Corpo:**
+- **Status:** 200 OK
+- **Body:**
   ```json
   {
       "id": 1,
@@ -197,18 +187,18 @@ A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inc
   }
   ```
 
-### Exibir Feriado
+### Show Holiday
 
 **Endpoint:** `GET /api/holidays/{id}`
 
-**Cabeçalhos:**
+**Headers:**
 
 - `Authorization: Bearer API_TOKEN`
 
-**Resposta de Sucesso:**
+**Success Response:**
 
 - **Status:** 200 OK
-- **Corpo:**
+- **Body:**
   ```json
   {
       "id": 1,
@@ -220,15 +210,15 @@ A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inc
   }
   ```
 
-### Atualizar Feriado
+### Update Holiday
 
 **Endpoint:** `PUT /api/holidays/{id}`
 
-**Cabeçalhos:**
+**Headers:**
 
 - `Authorization: Bearer API_TOKEN`
 
-**Parâmetros:**
+**Parameters:**
 
 - `title` (string, obrigatório)
 - `description` (string, opcional)
@@ -236,10 +226,10 @@ A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inc
 - `location` (string, opcional)
 - `participants` (array, opcional)
 
-**Resposta de Sucesso:**
+**Success Response:**
 
 - **Status:** 200 OK
-- **Corpo:**
+- **Body:**
   ```json
   {
       "id": 1,
@@ -251,39 +241,38 @@ A API utiliza Laravel Sanctum para autenticação via token. O fluxo básico inc
   }
   ```
 
-### Deletar Feriado
+### Delete Holiday
 
 **Endpoint:** `DELETE /api/holidays/{id}`
 
-**Cabeçalhos:**
+**Headers:**
 
 - `Authorization: Bearer API_TOKEN`
 
-**Resposta de Sucesso:**
+**Success Response:**
 
 - **Status:** 200 OK
-- **Corpo:**
+- **Body:**
   ```json
   {
       "message": "Holiday deleted successfully."
   }
   ```
 
-### Gerar PDF de Feriado
+### Generate Holiday PDF
 
-**Endpoint:** `GET /api/holidays/{id}/generate`
+**Endpoint:** `GET /api/holidays/{id}/pdf`
 
-**Cabeçalhos:**
+**Headers:**
 
 - `Authorization: Bearer API_TOKEN`
 
-**Resposta de Sucesso:**
+**Success Response:**
 
 - **Status:** 200 OK
-- **Corpo:** O arquivo PDF será baixado.
 
 ### 5. **Considerações Finais**
 
-## Considerações Finais
+## Final Considerations
 
-Esta API foi construída utilizando Laravel e segue as melhores práticas de desenvolvimento, incluindo autenticação segura com Laravel Sanctum e tratamento de erros adequado.
+This API was built using Laravel and follows best development practices, including secure authentication with Laravel Sanctum and proper error handling. It was delivered for a technical test for Buzzvel and developed by Edmar Cunha de Freitas.
